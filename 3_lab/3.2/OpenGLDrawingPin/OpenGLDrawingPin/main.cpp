@@ -80,30 +80,6 @@ private:
 		glViewport(0, 0, width, height);
 
 		DrawPin(width, height);
-		//SetupProjectionMatrix(width, height);
-		//DrawGlasses();
-
-		////Trapezoid
-		//glColor3f(0.0f, 0.0f, 0.0f);
-		//glVertex2f(-0.7f, -1.5f);
-		////glColor3f(1.0f, 1.0f, 1.0f);
-		//glVertex2f(0.7f, -1.5f);
-		////glColor3f(1.0f, 1.0f, 1.0f);
-		//glVertex2f(0.4f, -0.5f);
-		////glColor3f(1.0f, 1.0f, 1.0f);
-		//glVertex2f(-0.4f, -0.5f);
-
-		//glEnd(); //End quadrilateral coordinates
-		/*glBegin(GL_TRIANGLES);
-		glColor3f(1.0f, 0.0f, 0.0f);
-		glVertex2f(-0.8f, -0.8f);
-
-		glColor3f(0.0f, 1.0f, 0.0f);
-		glVertex2f(0.8f, -0.8f);
-
-		glColor3f(0.0f, 0.0f, 1.0f);
-		glVertex2f(0.0f, 0.8f);
-		glEnd();*/
 	}
 
 	static void DrawPin(int windowWidth, int windowHeight)
