@@ -49,8 +49,9 @@
             this.canvas.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.canvas.Dock = System.Windows.Forms.DockStyle.Fill;
             this.canvas.Location = new System.Drawing.Point(0, 0);
+            this.canvas.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.canvas.Name = "canvas";
-            this.canvas.Size = new System.Drawing.Size(976, 532);
+            this.canvas.Size = new System.Drawing.Size(1301, 655);
             this.canvas.TabIndex = 0;
             this.canvas.TabStop = false;
             this.canvas.MouseDown += new System.Windows.Forms.MouseEventHandler(this.canvas_MouseDown);
@@ -60,10 +61,11 @@
             // buttonColor
             // 
             this.buttonColor.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonColor.Font = new System.Drawing.Font("Unispace", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonColor.Location = new System.Drawing.Point(47, 62);
+            this.buttonColor.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonColor.Location = new System.Drawing.Point(63, 76);
+            this.buttonColor.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonColor.Name = "buttonColor";
-            this.buttonColor.Size = new System.Drawing.Size(110, 45);
+            this.buttonColor.Size = new System.Drawing.Size(147, 80);
             this.buttonColor.TabIndex = 1;
             this.buttonColor.Text = "Цвет пера";
             this.buttonColor.UseVisualStyleBackColor = true;
@@ -71,18 +73,20 @@
             // 
             // sizeBar
             // 
-            this.sizeBar.Location = new System.Drawing.Point(47, 208);
+            this.sizeBar.Location = new System.Drawing.Point(63, 256);
+            this.sizeBar.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.sizeBar.Name = "sizeBar";
-            this.sizeBar.Size = new System.Drawing.Size(110, 45);
+            this.sizeBar.Size = new System.Drawing.Size(147, 56);
             this.sizeBar.TabIndex = 2;
             this.sizeBar.ValueChanged += new System.EventHandler(this.sizeBar_ValueChanged);
             // 
             // label
             // 
-            this.label.Font = new System.Drawing.Font("Unispace", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label.Location = new System.Drawing.Point(43, 155);
+            this.label.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label.Location = new System.Drawing.Point(57, 191);
+            this.label.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label.Name = "label";
-            this.label.Size = new System.Drawing.Size(114, 50);
+            this.label.Size = new System.Drawing.Size(152, 62);
             this.label.TabIndex = 3;
             this.label.Text = "Толщина пера";
             this.label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -90,10 +94,11 @@
             // buttonSave
             // 
             this.buttonSave.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonSave.Font = new System.Drawing.Font("Unispace", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonSave.Location = new System.Drawing.Point(47, 409);
+            this.buttonSave.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonSave.Location = new System.Drawing.Point(63, 503);
+            this.buttonSave.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonSave.Name = "buttonSave";
-            this.buttonSave.Size = new System.Drawing.Size(110, 38);
+            this.buttonSave.Size = new System.Drawing.Size(147, 47);
             this.buttonSave.TabIndex = 4;
             this.buttonSave.Text = "Save";
             this.buttonSave.UseVisualStyleBackColor = true;
@@ -102,10 +107,11 @@
             // buttonOpen
             // 
             this.buttonOpen.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonOpen.Font = new System.Drawing.Font("Unispace", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonOpen.Location = new System.Drawing.Point(47, 365);
+            this.buttonOpen.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonOpen.Location = new System.Drawing.Point(63, 449);
+            this.buttonOpen.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonOpen.Name = "buttonOpen";
-            this.buttonOpen.Size = new System.Drawing.Size(110, 38);
+            this.buttonOpen.Size = new System.Drawing.Size(147, 47);
             this.buttonOpen.TabIndex = 5;
             this.buttonOpen.Text = "Open";
             this.buttonOpen.UseVisualStyleBackColor = true;
@@ -114,10 +120,11 @@
             // buttonClear
             // 
             this.buttonClear.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.buttonClear.Font = new System.Drawing.Font("Unispace", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonClear.Location = new System.Drawing.Point(47, 453);
+            this.buttonClear.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.buttonClear.Location = new System.Drawing.Point(63, 558);
+            this.buttonClear.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(110, 38);
+            this.buttonClear.Size = new System.Drawing.Size(147, 47);
             this.buttonClear.TabIndex = 6;
             this.buttonClear.Text = "Clear";
             this.buttonClear.UseVisualStyleBackColor = true;
@@ -133,9 +140,10 @@
             this.panel.Controls.Add(this.label);
             this.panel.Controls.Add(this.sizeBar);
             this.panel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panel.Location = new System.Drawing.Point(776, 0);
+            this.panel.Location = new System.Drawing.Point(1034, 0);
+            this.panel.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.panel.Name = "panel";
-            this.panel.Size = new System.Drawing.Size(200, 532);
+            this.panel.Size = new System.Drawing.Size(267, 655);
             this.panel.TabIndex = 7;
             // 
             // openFileDialog
@@ -144,11 +152,12 @@
             // 
             // Draftsman
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(976, 532);
+            this.ClientSize = new System.Drawing.Size(1301, 655);
             this.Controls.Add(this.panel);
             this.Controls.Add(this.canvas);
+            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
             this.Name = "Draftsman";
             this.Text = "Draftsman";
             this.Load += new System.EventHandler(this.Draftsman_Load);

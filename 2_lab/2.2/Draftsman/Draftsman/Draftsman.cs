@@ -132,7 +132,7 @@ namespace Draftsman
 
         private void buttonSave_Click(object sender, EventArgs e)
         {
-            saveFileDialog.Filter = "JPEG(*.JPEG)|*.jpeg";
+            saveFileDialog.Filter = "Image Files|*.jpg;*.jpeg";
 
             if (saveFileDialog.ShowDialog() == DialogResult.OK)
             {
@@ -146,12 +146,12 @@ namespace Draftsman
         private void buttonOpen_Click(object sender, EventArgs e)
         {
             openFileDialog.InitialDirectory = "C:\\";
-            openFileDialog.Filter = "JPEG(*.JPEG)|*.jpeg";
+            openFileDialog.Filter = "Image Files|*.jpg;*.jpeg";
 
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                canvas.Image = Image.FromFile(openFileDialog.FileName);
-                graphics.DrawImage(canvas.Image, new Point(0, 0));
+                graphics.DrawImage(Image.FromFile(openFileDialog.FileName), new Point(0, 0));
+                canvas.Image = map;
             }
         }
     }
