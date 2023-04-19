@@ -4,6 +4,18 @@
 #define _USE_MATH_DEFINES
 #include <math.h>
 
+struct PointGL {
+	GLfloat x;
+	GLfloat y;
+	GLfloat z;
+};
+
+struct ColorRGB {
+	GLfloat red;
+	GLfloat green;
+	GLfloat blue;
+};
+
 class GLFWInitializer final
 {
 public:
@@ -66,162 +78,120 @@ private:
 	GLFWwindow* m_window;
 };
 
-class Window : public BaseWindow
+class Pin
 {
 public:
-	using BaseWindow::BaseWindow;
+	Pin(PointGL translate, PointGL scale, ColorRGB hatColor) 
+		:m_translate(translate), m_scale(scale), m_hatColor(hatColor)
+	{}
 
-private:
-	void Draw(int width, int height) override
-	{
-		glClearColor(1.0, 1.0, 1.0, 0.0);
-		glClear(GL_COLOR_BUFFER_BIT);
+	void DrawPin() {
+		glTranslatef(m_translate.x, m_translate.y, m_translate.z);
+		glScalef(m_scale.x, m_scale.y, m_scale.z);
 
-		glViewport(0, 0, width, height);
-
-		DrawPin(width, height);
-	}
-
-	static void DrawPin(int windowWidth, int windowHeight)
-	{
 		//Рисуем левую руку
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(-0.5, 0.4, 0.0);
 		glRotatef(100, 0.0, 0.0, 1.0);
 		DrawHand();
+		glPopMatrix();
 
 		//Рисуем правую руку
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.5, -0.3, 0.0);
 		glRotatef(-60, 0.0, 0.0, 1.0);
 		DrawHand();
+		glPopMatrix();
 
 		//Рисуем левую ногу
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(-0.3, -0.3, 0.0);
 		glRotatef(-70, 0.0, 0.0, 1.0);
 		glScalef(0.5, 0.5, 1);
 		DrawLeg();
+		glPopMatrix();
 
 		//Рисуем тело
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glColor3f(0.0f, 0.0f, 0.0f);
 		DrawEllipse(0.0f, 0.0f, 0.5f, 0.5f);
+		glPopMatrix();
 
 		//Рисуем живот
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glRotatef(200, 0.0, 0.0, 1.0);
 		glColor3f(1.0f, 1.0f, 1.0f);
 		DrawEllipse(0.0f, 0.0f, 0.47f, 0.47f, 0.5);
+		glPopMatrix();
 
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(-0.15, -0.31, 0.0);
 		glRotatef(-25, 0.0, 0.0, 1.0);
 		glColor3f(0.0f, 0.0f, 0.0f);
 		DrawEllipse(0.0f, 0.0f, 0.35f, 0.5f, 1.0);
+		glPopMatrix();
 
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(-0.15, -0.32, 0.0);
 		glRotatef(-25, 0.0, 0.0, 1.0);
 		glColor3f(1.0f, 1.0f, 1.0f);
 		DrawEllipse(0.0f, 0.0f, 0.314f, 0.23f, 1.0);
+		glPopMatrix();
 
 		//Рисуем клюв
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.05, 0.18, 0.0);
 		glRotatef(-15, 0.0, 0.0, 1.0);
 		glScalef(0.3, 0.3, 1);
-		DrawBeak(windowWidth, windowHeight);
+		DrawBeak();
+		glPopMatrix();
 
 		//Рисуем глаза
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.01, 0.35, 0.0);
 		glRotatef(-15, 0.0, 0.0, 1.0);
 		glScalef(0.8, 0.8, 1);
 		DrawEye();
+		glPopMatrix();
 
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.18, 0.3, 0.0);
 		glRotatef(-15, 0.0, 0.0, 1.0);
 		glScalef(0.8, 0.8, 1);
 		DrawEye();
+		glPopMatrix();
 
 		//Рисуем шляпу
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.15, 0.51, 0.0);
 		glRotatef(-15, 0.0, 0.0, 1.0);
 		glScalef(0.5, 0.5, 1);
-		DrawHat();
+		DrawHat(m_hatColor);
+		glPopMatrix();
 
 		//Рисуем очки
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.13, 0.45, 0.0);
 		glRotatef(-15, 0.0, 0.0, 1.0);
 		glScalef(0.3, 0.3, 1);
 		DrawGlasses();
+		glPopMatrix();
 
 		//Рисуем правую ногу
-		glLoadIdentity();
-		SetupProjectionMatrix(windowWidth, windowHeight);
+		glPushMatrix();
 		glTranslatef(0.0, -0.4, 0.0);
 		glRotatef(-50, 0.0, 0.0, 1.0);
 		glScalef(0.5, 0.5, 1);
 		DrawLeg();
+		glPopMatrix();
 	}
 
-	static void SetupProjectionMatrix(int width, int height)
-	{
-		// Вычисляет матрицу ортографического преобразования такую, чтобы вписать квадратную область
-		// [-1;+1] по обеим осям внутрь видового порта размером width*height пикселей
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		const double aspectRatio = double(width) / double(height);
-		double viewWidth = 2.0;
-		double viewHeight = viewWidth;
-		if (aspectRatio > 1.0)
-		{
-			viewWidth = viewHeight * aspectRatio;
-		}
-		else
-		{
-			viewHeight = viewWidth / aspectRatio;
-		}
-		glOrtho(-viewWidth * 0.5, viewWidth * 0.5, -viewHeight * 0.5, viewHeight * 0.5, -1.0, 1.0);
-	}
+private:
+	PointGL m_translate;
+	PointGL m_scale;
+	ColorRGB m_hatColor;
 
-	/*void DrawCircle(float xCenter, float yCenter, float radius, int steps = 360) 
-	{
-		const float angle = static_cast<float>(2 * M_PI / steps);
-		float xPos = xCenter;
-		float yPos = yCenter;
-		float prevX = xPos;
-		float prevY = yPos - radius;
-		for (int i = 0; i < steps; i++)
-		{
-			float newX = radius * sin(angle * i);
-			float newY = -radius * cos(angle * i);
-
-			glBegin(GL_TRIANGLES);
-			glColor3f(0.0f, 0.0f, 0.0f);
-			glVertex2d(xCenter, yCenter);
-			glVertex2d(prevX, prevY);
-			glVertex2d(newX, newY);
-			glEnd();
-		}
-	}*/
-	static void DrawEllipse (float xCenter, float yCenter, float rx, float ry, float countPi = 2.0f, int points = 360)
+	static void DrawEllipse(float xCenter, float yCenter, float rx, float ry, float countPi = 2.0f, int points = 360)
 	{
 		const float step = static_cast<float>(M_PI * countPi / points);
 
@@ -251,27 +221,27 @@ private:
 	static void DrawLeg()
 	{
 		glBegin(GL_POLYGON);
-			glColor3f(1.0f, 0.0f, 0.0f);
-			glVertex2f(0.0f, -0.4f);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(0.2f, 0.0f);
-			glVertex2f(0.2f, -0.6f);
-			glVertex2f(-0.5f, -0.7f);
-			glVertex2f(-0.5f, -0.3f);			
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glVertex2f(0.0f, -0.4f);
+		glVertex2f(0.0f, 0.0f);
+		glVertex2f(0.2f, 0.0f);
+		glVertex2f(0.2f, -0.6f);
+		glVertex2f(-0.5f, -0.7f);
+		glVertex2f(-0.5f, -0.3f);
 		glEnd();
 		glLineWidth(4);
 		glBegin(GL_LINE_STRIP);
-			glColor3f(0.0f, 0.0f, 0.0f);
-			glVertex2f(0.0f, -0.4f);
-			glVertex2f(0.0f, 0.0f);
-			glVertex2f(0.2f, 0.0f);
-			glVertex2f(0.2f, -0.6f);
-			glVertex2f(-0.5f, -0.7f);
-			glVertex2f(-0.5f, -0.3f);
+		glColor3f(0.0f, 0.0f, 0.0f);
+		glVertex2f(0.0f, -0.4f);
+		glVertex2f(0.0f, 0.0f);
+		glVertex2f(0.2f, 0.0f);
+		glVertex2f(0.2f, -0.6f);
+		glVertex2f(-0.5f, -0.7f);
+		glVertex2f(-0.5f, -0.3f);
 		glEnd();
 	}
 
-	static void DrawBeak(int windowWidth, int windowHeight) {
+	static void DrawBeak() {
 		glColor3f(1.0f, 0.0f, 0.0f);
 		DrawEllipse(-0.6f, 0.0f, 0.2f, 0.2f);
 
@@ -285,15 +255,15 @@ private:
 		glPopMatrix();
 
 		glBegin(GL_POLYGON);
-			glColor3f(1.0f, 0.0f, 0.0f);
-			glVertex2f(-0.6f, 0.2f);
-			glVertex2f(-0.6f, -0.2f);
-			glVertex2f(-0.3f, -0.4f);
-			glVertex2f(0.3f, -0.4f);
-			glVertex2f(0.6f, -0.2f);
-			glVertex2f(0.6f, 0.2f);
-			glVertex2f(0.05f, 0.4f);
-			glVertex2f(-0.05f, 0.4f);
+		glColor3f(1.0f, 0.0f, 0.0f);
+		glVertex2f(-0.6f, 0.2f);
+		glVertex2f(-0.6f, -0.2f);
+		glVertex2f(-0.3f, -0.4f);
+		glVertex2f(0.3f, -0.4f);
+		glVertex2f(0.6f, -0.2f);
+		glVertex2f(0.6f, 0.2f);
+		glVertex2f(0.05f, 0.4f);
+		glVertex2f(-0.05f, 0.4f);
 		glEnd();
 	}
 
@@ -305,26 +275,25 @@ private:
 		DrawEllipse(0.0f, 0.0f, 0.03, 0.03);
 	}
 
-	static void DrawHat()
+	static void DrawHat(ColorRGB hatColor)
 	{
-		//glColor3f(0.5f, 0.2f, 0.0f); //супер дерево
-		glColor3f(0.7f, 0.4f, 0.0f);
+		//glColor3f(0.7f, 0.4f, 0.0f);
+		glColor3f(hatColor.red, hatColor.green, hatColor.blue);
 		DrawEllipse(-0.8f, 0.0f, 0.3f, 0.3f);
 
 		glColor3f(1.0f, 1.0f, 1.0f);
 		DrawEllipse(-0.7f, 0.3f, 0.4f, 0.4f);
 
-		glColor3f(0.7f, 0.4f, 0.0f);
+		glColor3f(hatColor.red, hatColor.green, hatColor.blue);
 		DrawEllipse(0.8f, 0.0f, 0.3f, 0.3f);
 
 		glColor3f(1.0f, 1.0f, 1.0f);
 		DrawEllipse(0.7f, 0.3f, 0.4f, 0.4f);
 
-		glColor3f(0.7f, 0.4f, 0.0f);
+		glColor3f(hatColor.red, hatColor.green, hatColor.blue);
 		DrawEllipse(0.0f, 0.3f, 0.4f, 0.3f, 1.0f);
 
 		glBegin(GL_POLYGON);
-		glColor3f(0.7f, 0.4f, 0.0f);
 		glVertex2f(-0.6f, -0.3f);
 		glVertex2f(-0.4f, 0.31f);
 		glVertex2f(0.4f, 0.31f);
@@ -332,7 +301,6 @@ private:
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glColor3f(0.7f, 0.4f, 0.0f);
 		glVertex2f(-0.5f, -0.3f);
 		glVertex2f(-0.8f, -0.3f);
 		glVertex2f(-0.8f, -0.1f);
@@ -340,7 +308,6 @@ private:
 		glEnd();
 
 		glBegin(GL_QUADS);
-		glColor3f(0.7f, 0.4f, 0.0f);
 		glVertex2f(0.5f, -0.3f);
 		glVertex2f(0.8f, -0.3f);
 		glVertex2f(0.8f, -0.1f);
@@ -391,6 +358,52 @@ private:
 		glVertex2f(0.6f, -0.15f);
 		glVertex2f(0.2f, -0.15f);
 		glEnd();
+	}
+};
+
+class Window : public BaseWindow
+{
+public:
+	using BaseWindow::BaseWindow;
+
+private:
+
+	void Draw(int width, int height) override
+	{
+		glClearColor(1.0, 1.0, 1.0, 0.0);
+		glClear(GL_COLOR_BUFFER_BIT);
+
+		glViewport(0, 0, width, height);
+
+		glLoadIdentity();
+		SetupProjectionMatrix(width, height);
+		Pin bigPin{ {-0.4f, 0.0f, 0.0f}, {1.0f, 1.0f, 1.0f}, {0.7f, 0.4f, 0.0f} };
+		bigPin.DrawPin();
+
+		glLoadIdentity();
+		SetupProjectionMatrix(width, height);
+		Pin smallPin{ {0.7f, 0.5f, 0.0f}, {0.5f, 0.5f, 1.0f}, {0.5f, 0.0f, 0.5f} };
+		smallPin.DrawPin();
+	}
+
+	static void SetupProjectionMatrix(int width, int height)
+	{
+		// Вычисляет матрицу ортографического преобразования такую, чтобы вписать квадратную область
+		// [-1;+1] по обеим осям внутрь видового порта размером width*height пикселей
+		glMatrixMode(GL_PROJECTION);
+		glLoadIdentity();
+		const double aspectRatio = double(width) / double(height);
+		double viewWidth = 2.0;
+		double viewHeight = viewWidth;
+		if (aspectRatio > 1.0)
+		{
+			viewWidth = viewHeight * aspectRatio;
+		}
+		else
+		{
+			viewHeight = viewWidth / aspectRatio;
+		}
+		glOrtho(-viewWidth * 0.5, viewWidth * 0.5, -viewHeight * 0.5, viewHeight * 0.5, -1.0, 1.0);
 	}
 };
 
