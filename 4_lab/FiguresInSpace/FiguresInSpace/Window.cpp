@@ -16,12 +16,33 @@ Window::Window(int w, int h, const char* title)
 	: BaseWindow(w, h, title)
 	, m_cube(CUBE_SIZE)
 {
-	m_cube.SetSideColor(CubeSide::NEGATIVE_X, 255, 0, 0);
-	m_cube.SetSideColor(CubeSide::POSITIVE_X, 0, 255, 0);
-	m_cube.SetSideColor(CubeSide::NEGATIVE_Y, 0, 0, 255);
-	m_cube.SetSideColor(CubeSide::POSITIVE_Y, 255, 255, 0);
-	m_cube.SetSideColor(CubeSide::NEGATIVE_Z, 0, 255, 255);
-	m_cube.SetSideColor(CubeSide::POSITIVE_Z, 255, 0, 255);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Z_POSITIVE_Y_FACE, 20, 220, 0);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Z_NEGATIVE_Y_FACE, 20, 220, 0);
+
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Z_FACE, 50, 150, 0);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Z_FACE, 50, 150, 0);
+
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Y_POSITIVE_Z_FACE, 0, 50, 150);
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Y_NEGATIVE_Z_FACE, 0, 50, 150);
+
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Z_FACE, 0, 250, 0);
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Z_FACE, 0, 250, 0);
+
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Z_POSITIVE_Y_FACE, 200, 0, 150);
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Z_NEGATIVE_Y_FACE, 200, 0, 150);
+
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Y_NEGATIVE_Z_FACE, 150, 170, 30);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Y_POSITIVE_Z_FACE, 150, 170, 30);
+
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 255, 255, 0);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 238, 130, 238);
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 0, 250, 154);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 123, 104, 225);
+
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 255, 0, 0);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 0, 255, 255);
+	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 255, 215, 0);
+	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 220, 20, 60);
 }
 
 void Window::OnResize(int width, int height)
@@ -61,16 +82,3 @@ void Window::Draw(int width, int height)
 
 	m_cube.Draw();
 }
-
-void Window::SetupProjectionMatrix(int width, int height)
-{
-	glViewport(0, 0, width, height);
-
-	// Вычисляем соотношение сторон клиентской области окна
-	double aspect = double(width) / double(height);
-
-	glMatrixMode(GL_PROJECTION);
-	const auto projMat = glm::perspective(60.0 * M_PI / 180.0, aspect, 0.1, 10.0);
-	glLoadMatrixd(&projMat[0][0]);
-}
-

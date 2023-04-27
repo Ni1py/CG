@@ -1,0 +1,42 @@
+#pragma once
+
+enum class CuboctahedronSide
+{
+	NEGATIVE_X_POSITIVE_Z_FACE,
+	NEGATIVE_X_NEGATIVE_Z_FACE,
+	POSITIVE_X_POSITIVE_Z_FACE,
+	POSITIVE_X_NEGATIVE_Z_FACE,
+	NEGATIVE_Y_POSITIVE_Z_FACE,
+	NEGATIVE_Y_NEGATIVE_Z_FACE,
+	POSITIVE_Y_POSITIVE_Z_FACE,
+	POSITIVE_Y_NEGATIVE_Z_FACE,
+	NEGATIVE_Z_POSITIVE_Y_FACE,
+	NEGATIVE_Z_NEGATIVE_Y_FACE,
+	POSITIVE_Z_POSITIVE_Y_FACE,
+	POSITIVE_Z_NEGATIVE_Y_FACE,
+	NEGATIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER,
+	POSITIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER,
+	NEGATIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER,
+	POSITIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER,
+	NEGATIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER,
+	POSITIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER,
+	NEGATIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER,
+	POSITIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER,
+};
+
+class Cuboctahedron
+{
+public:
+	// Создаем куб с заданной длиной стороны
+	explicit Cuboctahedron(float size = 1);
+	// Рисуем куб
+	void Draw() const;
+	// Задаем цвет стороны куба
+	void SetSideColor(CuboctahedronSide side, GLubyte r, GLubyte g, GLubyte b, GLubyte a = 255);
+
+private:
+	float m_size;
+
+	// Цвета сторон куба
+	GLubyte m_sideColors[20][4];
+};

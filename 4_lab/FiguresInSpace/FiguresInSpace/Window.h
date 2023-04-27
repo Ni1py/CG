@@ -1,6 +1,6 @@
 ﻿#pragma once
 #include "BaseWindow.h"
-#include "Cube.h"
+#include "Cuboctahedron.h"
 
 class Window : public BaseWindow
 {
@@ -16,5 +16,5 @@ private:
 
 	static void SetupProjectionMatrix(int width, int height);
 
-	Cube m_cube;
+	Cuboctahedron m_cube;
 };
