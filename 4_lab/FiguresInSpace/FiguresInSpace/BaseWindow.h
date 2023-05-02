@@ -17,8 +17,13 @@ public:
 private:
 	static BaseWindow* GetBaseWindow(GLFWwindow* window);
 
-	virtual void OnResize(
-		[[maybe_unused]] int width, [[maybe_unused]] int height) {}
+	//для настройки проекционной матрицы, чтобы вовремя изменения размеров окна, отрисовка не вытягивалась
+	virtual void OnResize(int width, int height) {}
+
+	//для изменения матрицы камер
+	virtual void OnMouseButton(int button, int action, int mods) {}
+	virtual void OnMouseMove(double x, double y) {}
+
 	virtual void Draw(int width, int height) = 0;
 	virtual void OnRunStart() {}
 	virtual void OnRunEnd() {}
