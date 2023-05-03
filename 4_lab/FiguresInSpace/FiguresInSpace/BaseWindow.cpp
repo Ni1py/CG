@@ -15,6 +15,16 @@ BaseWindow::BaseWindow(int w, int h, const char* title)
 		[](GLFWwindow* window, int width, int height) {
 			GetBaseWindow(window)->OnResize(width, height);
 		});
+
+	glfwSetMouseButtonCallback(m_window,
+		[](GLFWwindow* window, int button, int action, int mods) {
+			GetBaseWindow(window)->OnMouseButton(button, action, mods);
+		});
+
+	glfwSetCursorPosCallback(m_window,
+		[](GLFWwindow* window, double x, double y) {
+			GetBaseWindow(window)->OnMouseMove(x, y);
+		});
 }
 
 BaseWindow::~BaseWindow()
