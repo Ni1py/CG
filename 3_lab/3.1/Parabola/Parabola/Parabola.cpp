@@ -4,7 +4,7 @@ Parabola::Parabola(PointGL translate)
 	:m_translate(translate)
 {}
 
-void Parabola::DrawParabola() const
+void Parabola::Draw() const
 {
 	glTranslatef(m_translate.x, m_translate.y, m_translate.z);
 

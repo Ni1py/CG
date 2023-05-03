@@ -3,7 +3,7 @@
 CoordinateAxes::CoordinateAxes()
 {}
 
-void CoordinateAxes::DrawCoordinateAxes() const
+void CoordinateAxes::Draw() const
 {
 	DrawOX();
 	DrawOY();

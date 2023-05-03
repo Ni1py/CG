@@ -11,7 +11,7 @@ class Parabola
 {
 public:
 	Parabola(PointGL translate);
-	void DrawParabola() const;
+	void Draw() const;
 private:
 	PointGL m_translate;
 };
