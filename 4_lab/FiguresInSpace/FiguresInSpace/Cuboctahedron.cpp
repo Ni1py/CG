@@ -4,33 +4,21 @@
 Cuboctahedron::Cuboctahedron(float size)
 	: m_size(size)
 {
-	SetSideColor(CuboctahedronSide::POSITIVE_Z_POSITIVE_Y_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_Z_NEGATIVE_Y_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::FRONT_SQUARE_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::REAR_SQUARE_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::RIGHT_SQUARE_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LEFT_SQUARE_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::UPPER_SQUARE_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LOWER_SQUARE_FACE, 255, 255, 255);
 
-	SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Z_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Z_FACE, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::NEGATIVE_Y_POSITIVE_Z_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::NEGATIVE_Y_NEGATIVE_Z_FACE, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Z_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Z_FACE, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::NEGATIVE_Z_POSITIVE_Y_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::NEGATIVE_Z_NEGATIVE_Y_FACE, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::POSITIVE_Y_NEGATIVE_Z_FACE, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_Y_POSITIVE_Z_FACE, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 255, 255, 255);
-
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 255, 255, 255);
-	SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::RIGHT_UPPER_FRONT_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LEFT_UPPER_FRONT_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LEFT_LOWER_FRONT_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::RIGHT_LOWER_FRONT_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::RIGHT_UPPER_REAR_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LEFT_UPPER_REAR_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::LEFT_LOWER_REAR_TRIANGULAR_FACE, 255, 255, 255);
+	SetSideColor(CuboctahedronSide::RIGHT_LOWER_REAR_TRIANGULAR_FACE, 255, 255, 255);
 }
 
 void Cuboctahedron::Draw() const
@@ -50,19 +38,7 @@ void Cuboctahedron::Draw() const
 		{ -1, 0, +1 }, // 11
 	};
 
-	static constexpr unsigned char faces[20][3] = {
-		{ 11, 7, 10 }, // верх центр лиц квадрата
-		{ 1, 7, 11 },  // низ центр лиц квадрата
-		{ 7, 2, 6 },   // лев прав лиц квадрата
-		{ 2, 5, 6 },   // прав прав лиц квадрата
-		{ 1, 0, 2 },   // низ низ невидим квадрата
-		{ 0, 3, 2 },   // верх низ невидим квадрата
-		{ 0, 11, 9 },  // лев лев невидим квадрата
-		{ 0, 9, 4 },   // прав лев невидим квадрата
-		{ 4, 8, 5 },   // верх центр невидим квадрата
-		{ 3, 4, 5 },   // низ центр невидим квадрата
-		{ 9, 6, 8 },   // верх верх лиц квадрата
-		{ 10, 6, 9 },   // низ верх лиц квадрата
+	static constexpr unsigned char triangularFaces[8][3] = {
 		{ 11, 10, 9 }, // левый верх угол лица
 		{ 10, 7, 6 },  // правый верх угол лица
 		{ 0, 1, 11 },  // левый низ угол лица
@@ -73,7 +49,17 @@ void Cuboctahedron::Draw() const
 		{ 3, 5, 2 },   // правый низ невидим угла
 	};
 
-	static size_t const faceCount = sizeof(faces) / sizeof(*faces);
+	static constexpr unsigned char squareFaces[6][4] = {
+		{11, 1, 7, 10}, //лицевой
+		{4, 8, 5, 3}, //задний
+		{7, 2, 5, 6}, //правый
+		{0, 11, 9, 4}, //левый
+		{1, 0, 3, 2}, //нижний
+		{10, 6, 8, 9}, //верхний
+	};
+
+	static size_t const triangularFaceCount = sizeof(triangularFaces) / sizeof(*triangularFaces);
+	static size_t const squareFaceCount = sizeof(squareFaces) / sizeof(*squareFaces);
 
 	// Сохраняем текущую матрицу моделирования-вида в стеке матриц
 	// т.к. следующей строкой она будет модифицирована при помощи glScale
@@ -83,15 +69,32 @@ void Cuboctahedron::Draw() const
 
 	glBegin(GL_TRIANGLES);
 	{
-		for (size_t face = 0; face < faceCount; ++face)
+		for (size_t face = 0; face < triangularFaceCount; ++face)
+		{
+			// устанавливаем цвет грани
+			glColor4ubv(m_sideColors[face + 6]);
+
+			// задаем треугольную грань, перечисляя ее вершины
+			for (size_t i = 0; i < 3; ++i)
+			{
+				size_t vertexIndex = triangularFaces[face][i];
+				glVertex3fv(vertices[vertexIndex]);
+			}
+		}
+	}
+	glEnd();
+
+	glBegin(GL_QUADS);
+	{
+		for (size_t face = 0; face < squareFaceCount; ++face)
 		{
 			// устанавливаем цвет грани
 			glColor4ubv(m_sideColors[face]);
 
 			// задаем четырехугольную грань, перечисляя ее вершины
-			for (size_t i = 0; i < 3; ++i)
+			for (size_t i = 0; i < 4; ++i)
 			{
-				size_t vertexIndex = faces[face][i];
+				size_t vertexIndex = squareFaces[face][i];
 				glVertex3fv(vertices[vertexIndex]);
 			}
 		}

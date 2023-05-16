@@ -67,33 +67,22 @@ Window::Window(int w, int h, const char* title)
 	: BaseWindow(w, h, title)
 	, m_cube(CUBE_SIZE)
 {
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Z_POSITIVE_Y_FACE, 20, 220, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Z_NEGATIVE_Y_FACE, 20, 220, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::FRONT_SQUARE_FACE, 20, 220, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::REAR_SQUARE_FACE, 50, 100, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::RIGHT_SQUARE_FACE, 0, 50, 150, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LEFT_SQUARE_FACE, 0, 250, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::UPPER_SQUARE_FACE, 50, 70, 100, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LOWER_SQUARE_FACE, 80, 20, 10, 100);
 
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Z_FACE, 50, 150, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Z_FACE, 50, 150, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::RIGHT_UPPER_FRONT_TRIANGULAR_FACE, 255, 255, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LEFT_UPPER_FRONT_TRIANGULAR_FACE, 238, 130, 238, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LEFT_LOWER_FRONT_TRIANGULAR_FACE, 0, 250, 154, 100);
+	m_cube.SetSideColor(CuboctahedronSide::RIGHT_LOWER_FRONT_TRIANGULAR_FACE, 123, 104, 225, 100);
 
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Y_POSITIVE_Z_FACE, 0, 50, 150, 100);
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Y_NEGATIVE_Z_FACE, 0, 50, 150, 100);
-
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Z_FACE, 0, 250, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Z_FACE, 0, 250, 0, 100);
-
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Z_POSITIVE_Y_FACE, 200, 0, 150, 100);
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_Z_NEGATIVE_Y_FACE, 200, 0, 150, 100);
-
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Y_NEGATIVE_Z_FACE, 150, 170, 30, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_Y_POSITIVE_Z_FACE, 150, 170, 30, 100);
-
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 255, 255, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_POSITIVE_Z_CORNER, 238, 130, 238, 100);
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 0, 250, 154, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_POSITIVE_Z_CORNER, 123, 104, 225, 100);
-
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 255, 0, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_POSITIVE_Y_NEGATIVE_Z_CORNER, 0, 255, 255, 100);
-	m_cube.SetSideColor(CuboctahedronSide::NEGATIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 255, 215, 0, 100);
-	m_cube.SetSideColor(CuboctahedronSide::POSITIVE_X_NEGATIVE_Y_NEGATIVE_Z_CORNER, 220, 20, 60, 100);
+	m_cube.SetSideColor(CuboctahedronSide::RIGHT_UPPER_REAR_TRIANGULAR_FACE, 255, 0, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LEFT_UPPER_REAR_TRIANGULAR_FACE, 0, 255, 255, 100);
+	m_cube.SetSideColor(CuboctahedronSide::LEFT_LOWER_REAR_TRIANGULAR_FACE, 255, 215, 0, 100);
+	m_cube.SetSideColor(CuboctahedronSide::RIGHT_LOWER_REAR_TRIANGULAR_FACE, 220, 20, 60, 100);
 }
 
 void Window::OnResize(int width, int height)
@@ -130,28 +119,33 @@ void Window::OnResize(int width, int height)
 
 void Window::OnRunStart()
 {
-	//включаем режим смешивания цветов
-	glEnable(GL_BLEND);
-	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
 	// Включаем тест глубины для удаления невидимых линий и поверхностей
 	glEnable(GL_DEPTH_TEST);
-
-	// Включаем режим отбраковки граней
-	glEnable(GL_CULL_FACE);
-	glCullFace(GL_BACK);
 }
 
 void Window::Draw(int width, int height)
 {
+	//включаем запись в буфер глубины
+	glDepthMask(GL_TRUE);
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+	//glClearColor(1, 1, 1, 1);
+	SetupCameraMatrix();
+	glRotatef(90, 1, 0, 0);
+
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	m_cube.Draw();
+
+	glDepthMask(GL_FALSE);
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	//включаем режим смешивания цветов
+	glEnable(GL_BLEND);
+	glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+	// Включаем режим отбраковки граней
+	glEnable(GL_CULL_FACE);
+	glCullFace(GL_BACK);
 	//настраиваем на то, чтобы отбрасывались грани, кот рисуются против часовой
 	glFrontFace(GL_CW);
-
-	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-	SetupCameraMatrix();
-
-	glRotatef(90, 1, 0, 0);
 
 	glPushMatrix();
 	m_cube.Draw();
