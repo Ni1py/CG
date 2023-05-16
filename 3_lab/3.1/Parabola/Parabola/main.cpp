@@ -87,12 +87,12 @@ private:
 
 		glPushMatrix();
 		CoordinateAxes axes;
-		axes.DrawCoordinateAxes();
+		axes.Draw();
 		glPopMatrix();
 
 		glPushMatrix();
 		Parabola parabola{ {0.0f, 0.0f, 0.0f} };
-		parabola.DrawParabola();
+		parabola.Draw();
 		glPopMatrix();
 	}
 

@@ -5,7 +5,7 @@ class CoordinateAxes
 {
 public:
 	CoordinateAxes();
-	void DrawCoordinateAxes() const;
+	void Draw() const;
 private:
 	static void DrawOX();
 	static void DrawOY();
