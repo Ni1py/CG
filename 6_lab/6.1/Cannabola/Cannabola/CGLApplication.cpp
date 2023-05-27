@@ -60,14 +60,11 @@ void CGLApplication::InitShaders()
 {
 	ShaderLoader loader;
 	Shader vertexShader = loader.LoadShader(GL_VERTEX_SHADER, "cannabola.vsh");
-	//Shader fragmentShader = loader.LoadShader(GL_FRAGMENT_SHADER, "cannabola.fsh");
 
 	vertexShader.Compile();
-	//fragmentShader.Compile();
 
 	m_program.Create();
 	m_program.AttachShader(vertexShader);
-	//m_program.AttachShader(fragmentShader);
 
 	m_program.Link();
 }
