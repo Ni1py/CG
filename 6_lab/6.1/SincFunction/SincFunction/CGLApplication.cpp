@@ -26,13 +26,15 @@ void CGLApplication::OnDisplay()
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	glPushMatrix();
-	glScalef(0.7f, 0.7f, 1);
-	glTranslatef(0, -1, 0);
+	glScalef(0.1f, 1, 1);
+	//glTranslatef(0, -1, 0);
 	glUseProgram(m_program);
 
+	glColor3f(0, 0, 0);
 	glBegin(GL_LINE_STRIP);
 	{
-		for (double x = 0; x <= 2 * M_PI; x += M_PI / 1000)
+		//for (double x = 0; x <= 2 * M_PI; x += M_PI / 1000)
+		for (float x = -10; x < 11; x += 0.01)
 		{
 			glVertex2d(x, 0);
 		}
@@ -58,15 +60,12 @@ void CGLApplication::OnReshape(int width, int height)
 void CGLApplication::InitShaders()
 {
 	ShaderLoader loader;
-	Shader vertexShader = loader.LoadShader(GL_VERTEX_SHADER, "cannabola.vsh");
-	Shader fragmentShader = loader.LoadShader(GL_FRAGMENT_SHADER, "cannabola.fsh");
+	Shader vertexShader = loader.LoadShader(GL_VERTEX_SHADER, "sinc.vsh");
 
 	vertexShader.Compile();
-	fragmentShader.Compile();
 
 	m_program.Create();
 	m_program.AttachShader(vertexShader);
-	m_program.AttachShader(fragmentShader);
 
 	m_program.Link();
 }

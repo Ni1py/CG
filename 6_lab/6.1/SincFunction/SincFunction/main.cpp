@@ -1,6 +1,6 @@
 #include "CGLApplication.h"
 
-CGLApplication app("Cannabola");
+CGLApplication app("SincFunction");
 
 int main()
 {
