@@ -1,3 +1,5 @@
+uniform mat4 u_rotate;
+
 float CalculateR(float x)
 {
     return (1.0 + sin(x)) * (1.0 + 0.9 * cos(8.0 * x)) *
@@ -13,5 +15,5 @@ void main()
     position.x = R * cos(x);
     position.y = R * sin(x);
 
-    gl_Position = gl_ModelViewProjectionMatrix * position;
+    gl_Position = gl_ModelViewProjectionMatrix * position * u_rotate;
 }

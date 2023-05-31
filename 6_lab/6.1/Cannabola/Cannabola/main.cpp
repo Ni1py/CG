@@ -1,6 +1,6 @@
 #include "CGLApplication.h"
 
-CGLApplication app("Cannabola");
+CGLApplication app("Cannabola", {800, 600});
 
 int main()
 {
