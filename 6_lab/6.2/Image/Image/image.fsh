@@ -26,16 +26,16 @@ void main()
 {
     vec2 pos = gl_TexCoord[0].xy;
 
-    const vec2 p0 = vec2(2.08, 3.68);
-    const vec2 p1 = vec2(2.68, 2.62);
-    const vec2 p2 = vec2(1.46, 2.63);
-    const vec2 p3 = vec2(0.26, 2.38);
-    const vec2 p4 = vec2(1.07, 1.46);
-    const vec2 p5 = vec2(0.93, 0.24);
-    const vec2 p6 = vec2(2.06, 0.73);
-    const vec2 p7 = vec2(3.17, 0.22);
-    const vec2 p8 = vec2(3.05, 1.45);
-    const vec2 p9 = vec2(3.88, 2.35);
+    const vec2 p0 = vec2(1.99, 3.81);
+    const vec2 p1 = vec2(2.43, 2.43);
+    const vec2 p2 = vec2(1.55, 2.42);
+    const vec2 p3 = vec2(0.15, 2.39);
+    const vec2 p4 = vec2(1.25, 1.55);
+    const vec2 p5 = vec2(0.85, 0.16);
+    const vec2 p6 = vec2(1.99, 0.97);
+    const vec2 p7 = vec2(3.11, 0.18);
+    const vec2 p8 = vec2(2.72, 1.55);
+    const vec2 p9 = vec2(3.80, 2.39);
 
     if (PointIsInsideStar(p0, p1, p2, p3, p4, p5, p6, p7, p8, p9, pos))
     {
