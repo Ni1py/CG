@@ -26,6 +26,13 @@ private:
 	void DrawSkyBox() const;
 	// Рисуем землю
 	void DrawEarth() const;
+
+	// Рисуем солнце
+	void DrawSun() const;
+
+	// Рисуем луну
+	void DrawMoon() const;
+
 	// Угол обзора по вертикали
 	static const double FIELD_OF_VIEW;
 
@@ -46,5 +53,7 @@ private:
 
 	// Земля и куб
 	CPlanet m_earth;
+	CPlanet m_sun;
+	CPlanet m_moon;
 	CSkyBox m_skyBox;
 };
