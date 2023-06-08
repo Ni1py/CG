@@ -51,7 +51,6 @@ void CGLApplication::OnDisplay()
 	GLint timeUniform = glGetUniformLocation(m_program, "u_time");
 	glUniform1f(timeUniform, workTime);
 
-	glColor3f(0, 0, 0);
 	m_surface.Draw();
 
 	glUseProgram(0);
@@ -76,14 +75,14 @@ void CGLApplication::InitShaders()
 {
 	ShaderLoader loader;
 	Shader vertexShader = loader.LoadShader(GL_VERTEX_SHADER, "Shaders/TransformationVertex.glsl");
-	//Shader fragmentShader = loader.LoadShader(GL_FRAGMENT_SHADER, "cannabola.fsh");
+	Shader fragmentShader = loader.LoadShader(GL_FRAGMENT_SHADER, "Shaders/TransformationFragment.glsl");
 
 	vertexShader.Compile();
-	//fragmentShader.Compile();
+	fragmentShader.Compile();
 
 	m_program.Create();
 	m_program.AttachShader(vertexShader);
-	//m_program.AttachShader(fragmentShader);
+	m_program.AttachShader(fragmentShader);
 
 	m_program.Link();
 }

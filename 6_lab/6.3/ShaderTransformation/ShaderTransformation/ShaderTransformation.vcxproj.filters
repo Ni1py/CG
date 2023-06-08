@@ -68,5 +68,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\TransformationVertex.glsl" />
+    <None Include="Shaders\TransformationFragment.glsl" />
   </ItemGroup>
 </Project>

@@ -153,6 +153,7 @@
     <ClInclude Include="Surface.h" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shaders\TransformationFragment.glsl" />
     <None Include="Shaders\TransformationVertex.glsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
