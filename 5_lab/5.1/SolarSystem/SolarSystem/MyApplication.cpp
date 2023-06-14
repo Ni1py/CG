@@ -13,7 +13,7 @@ CMyApplication::CMyApplication(const char* title, int width, int height)
 	, m_earth(L"assets/earth.png")
 	, m_moon(L"assets/8k_moon.jpg")
 	, m_rotationController(width, height)
-	, m_light(CVector3f(0, 10, 0))
+	, m_light(CVector3f(0, 0, 0))
 	, m_skyBox(
 		  L"assets/Galaxy_LT.png",
 		  L"assets/Galaxy_RT.png",
@@ -29,7 +29,7 @@ CMyApplication::CMyApplication(const char* title, int width, int height)
 	m_sun.SetRotationSpeed(20);
 	//m_sun.SetInclinationAngle(1);
 
-	m_earth.SetRotationSpeed(50);
+	m_earth.SetRotationSpeed(100);
 	m_earth.SetInclinationAngle(23.43);
 
 	m_moon.SetRotationSpeed(10);
@@ -38,6 +38,8 @@ CMyApplication::CMyApplication(const char* title, int width, int height)
 
 void CMyApplication::OnInit()
 {
+	m_animationController.Reset();
+
 	glEnable(GL_DEPTH_TEST);
 	glClearColor(1, 1, 1, 1);
 
@@ -54,28 +56,12 @@ void CMyApplication::OnDisplay()
 	glPolygonMode(GL_FRONT_AND_BACK, m_polygonMode);
 
 	DrawSkyBox();
-	DrawSun();
 
-	glPushMatrix();
-	for (int angle = 0; angle < 360; angle += 20)
-	{
-		float angleInRadians = (float)(angle * M_PI / 180.0f);
-		float x = cosf(angleInRadians);
-		float z = sinf(angleInRadians);
-		glTranslatef(x, 0, z);
-	}
+	DrawSun();
+	
 	DrawEarth();
-	glPopMatrix();
-	glPushMatrix();
-	for (int angle = 0; angle < 360; angle += 20)
-	{
-		float angleInRadians = (float)(angle * M_PI / 180.0f);
-		float x = cosf(angleInRadians);
-		float z = sinf(angleInRadians);
-		glTranslatef(x, 0, z);
-	}
+
 	DrawMoon();
-	glPopMatrix();
 
 	PostRedisplay();
 	Sleep(10);
@@ -83,9 +69,7 @@ void CMyApplication::OnDisplay()
 
 void CMyApplication::DrawSun() const
 {
-	glEnable(GL_LIGHTING);
-	glEnable(GL_LIGHT0);
-	m_light.SetLight(GL_LIGHT0);
+	glDisable(GL_LIGHTING);
 	glEnable(GL_CULL_FACE);
 	glPushMatrix();
 		glScalef(0.6, 0.6, 0.6);
@@ -99,8 +83,8 @@ void CMyApplication::DrawEarth() const
 	glEnable(GL_LIGHT0);
 	m_light.SetLight(GL_LIGHT0);
 	glEnable(GL_CULL_FACE);
+
 	glPushMatrix();
-		glTranslatef(1.8, 0, 0);
 		glScalef(0.2, 0.2, 0.2);
 		m_earth.Draw();
 	glPopMatrix();
@@ -113,7 +97,6 @@ void CMyApplication::DrawMoon() const
 	m_light.SetLight(GL_LIGHT0);
 	glEnable(GL_CULL_FACE);
 	glPushMatrix();
-		glTranslatef(1.4, 0, 0);
 		glScalef(0.09, 0.09, 0.09);
 		m_moon.Draw();
 	glPopMatrix();
@@ -131,9 +114,19 @@ void CMyApplication::DrawSkyBox() const
 void CMyApplication::OnIdle()
 {
 	m_animationController.Tick();
-	m_sun.Animate(static_cast<float>(m_animationController.GetTimeDelta() * 0.001));
-	m_earth.Animate(static_cast<float>(m_animationController.GetTimeDelta() * 0.001));
-	m_moon.Animate(static_cast<float>(m_animationController.GetTimeDelta() * 0.001));
+
+	float time = static_cast<float>(m_animationController.GetTimeDelta() * 0.001);
+
+	static float workTime = 0;
+	workTime += time * 20;
+
+	float angleInRadians = (workTime * M_PI / 180.0f);
+	float x = cosf(angleInRadians) * 7;
+	float y = sinf(angleInRadians) * 7;
+	
+	m_sun.Animate(time, 0, 0);
+	m_earth.Animate(time, x, y);
+	m_moon.Animate(time, x * 2.25 - y / 1.5, y * 2.25 - x / 1.5);
 	PostRedisplay();
 	Sleep(10);
 }
